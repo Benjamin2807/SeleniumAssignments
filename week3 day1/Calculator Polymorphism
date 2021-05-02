@@ -1,0 +1,67 @@
+package week3.org.calculator;
+
+public class Calculator {
+
+	
+	int result;
+	double result1;
+	double result2;
+	
+	public void add(int a, int b)
+	{
+		result = a+b;
+		System.out.println("The sum is " +result);
+	}
+	
+	public void add(int a, int b, int c)
+	{
+		result = a+b+c;
+		System.out.println("The sum is " +result);
+	}	
+	
+	
+	public void multiply(int a, int b)
+	{
+		result1 = a*b;
+		System.out.println("The multiplication is " +result1);
+	}
+	
+	public void multiply(int a, double b)
+	{
+		result1 = a*b;
+		System.out.println("The multiplication is " +result1);
+	}	
+	
+	
+	public void divide(int a, int b)
+	{
+		result2 = a/b;
+		System.out.println("The Divide is " +result2);
+	}
+	
+	public void divide(int a, double b)
+	{
+		result2 = a/b;
+		System.out.println("The Divide is " +result2);
+	}	
+	
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		
+		Calculator cal = new Calculator();
+		
+		cal.add(10, 155, 399);
+		
+		cal.multiply(4, 5.7);
+		
+		cal.divide(10, 2.5);
+		
+
+	}
+
+}
