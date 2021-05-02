@@ -1,0 +1,69 @@
+package week3.org.abstractassignment2;
+
+public interface Admission {
+	
+	
+	public void getAdmission();
+	
+	public void getPg();
+	
+
+}
+
+
+
+package week3.org.abstractassignment2;
+
+public abstract class University implements Admission{
+	
+	
+	public void getAdmission()
+	{
+		System.out.println("Admission confirmed");
+		
+	}
+	
+	
+	public void getPg()
+	{
+		System.out.println("Pg fees is 1 lakh");
+	}
+	
+	
+	public abstract void getUg();
+	
+
+}
+
+
+
+
+
+package week3.org.abstractassignment2;
+
+class College extends University{
+	
+	@Override
+	public void getUg() 
+	{
+		System.out.println("Ug fees is 2 Lakh");
+	}
+	
+	
+	
+
+	public static void main(String[] args)
+	
+	{
+	
+		College c = new College();
+		c.getAdmission();
+		c.getPg();
+		c.getUg();
+	}
+
+	
+		
+	
+
+}
