@@ -1,0 +1,77 @@
+package week3.org.college;
+
+public class College {
+	
+	public void CollegeName()
+	{
+		System.out.println("Loyola ICAM");
+	}
+	
+	
+	public void CollegeCode()
+	{
+		System.out.println("50100");
+	}
+
+	
+	public void CollegeRank()
+	{
+		System.out.println("4");
+	}
+	
+}
+
+
+
+package week3.org.college;
+
+public class Department extends College {
+
+	public void DeptName()
+	{
+		System.out.println("IT");
+	}
+	
+	
+}
+
+
+
+package week3.org.college;
+
+public class Student extends Department{
+	
+	public void StudentName()
+	{
+		System.out.println("Benjamin");
+	}
+	
+	
+	public void StudentDept()
+	{
+		System.out.println("Information Technology");
+	}
+
+	
+	public void StudentID()
+	{
+		System.out.println("10");
+	}
+	
+
+	public static void main(String[] args) {
+		
+		
+		Student stud = new Student();
+		stud.CollegeName();
+		stud.CollegeCode();
+		stud.CollegeRank();
+		stud.DeptName();
+		stud.StudentName();
+		stud.StudentDept();
+		stud.StudentID();
+		
+
+	}
+
+}
