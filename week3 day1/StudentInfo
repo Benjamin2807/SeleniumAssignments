@@ -1,0 +1,32 @@
+package week3.org.StudentsInfo;
+
+public class StudentsInfo {
+
+	public void getStudentInfo(int i)
+	{
+		System.out.println(i);
+	}
+	
+	public void getStudentInfo(int i, String name)
+	{
+		System.out.println(i+ " " +name);
+	}	
+	
+	public void getStudentInfo(String name, int i)
+	{
+		System.out.println(i);
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		StudentsInfo sf = new StudentsInfo(); 
+		sf.getStudentInfo(5);
+		sf.getStudentInfo("Prem kumar",15);
+		sf.getStudentInfo(10,"Benjamin");
+		
+		
+
+	}
+
+}
