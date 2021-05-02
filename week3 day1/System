@@ -1,0 +1,39 @@
+package week3.org.system;
+
+public class Computer {
+	
+	
+	
+	public void getComputerModel()
+	{
+		System.out.println("Msi");
+	}
+
+}
+
+
+package week3.org.system;
+
+public class Desktop extends Computer{
+	
+	
+	public void getDesktopSize()
+	{
+		System.out.println("15.6 Inches");
+	}
+	
+	
+
+	public static void main(String[] args) {
+		
+		
+		Desktop desk = new Desktop();
+		desk.getComputerModel();
+		desk.getDesktopSize();
+        
+	}
+
+}
+
+
+
