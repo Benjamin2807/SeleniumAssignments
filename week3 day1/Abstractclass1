@@ -1,0 +1,55 @@
+package week3.org.abstractassignment1;
+
+public interface Hardware {
+	
+	
+	public void hardwareResource();
+	
+	
+
+}
+
+
+
+package week3.org.abstractassignment1;
+
+public interface Software {
+	
+	
+	public void softwareResource();
+
+}
+
+
+
+package week3.org.abstractassignment1;
+
+public class Desktop implements Hardware, Software{
+	
+	
+	public void softwareResource() {
+		
+		System.out.println("we have 2000 software resource");
+		
+		
+	}
+
+	public void hardwareResource() {
+		
+		System.out.println("we have 1000 hardware resource");
+		
+	}
+
+	public static void main(String[] args) {
+		
+		Desktop d = new Desktop();
+		d.hardwareResource();
+		d.softwareResource();
+		
+		
+
+	}
+
+	
+
+}
