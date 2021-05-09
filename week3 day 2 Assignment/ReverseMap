@@ -1,0 +1,33 @@
+package week3.day2Assignments;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class ReverseMap {
+
+	public static void main(String[] args) {
+		
+		
+		int[] input = {100,101,102,104};
+		
+		String[] input2 = {"Hari","Naveen","Sam","Balaji"};
+		
+		Map<Integer,String> map = new LinkedHashMap<Integer,String>();	
+		
+		for(int i = 0; i<input.length;i++)
+		{
+			map.put(input[i], input2[i]);
+			
+		}
+	
+	System.out.println(map);	
+		
+	for(int j=input.length-1; j>=0; j--)
+	{
+		System.out.println(map.get(input[j]));
+	}
+		
+
+	}
+
+}
