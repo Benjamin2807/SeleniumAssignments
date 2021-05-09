@@ -1,0 +1,47 @@
+package week3.day2Assignments;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class RemoveDuplicates {
+
+	public static void main(String[] args) {
+		String str = "easy peasy";
+		char[] charArray = str.toCharArray();
+		
+		Set<Character> charSet = new LinkedHashSet<Character>();
+		
+		Set<Character> dupeCharset = new LinkedHashSet<Character>();
+		
+
+		for(int i =0; i<charArray.length; i++)
+		{
+			
+			
+			 
+			if(charSet.contains(charArray[i]))
+			{
+				dupeCharset.add(charArray[i]);
+			}
+			
+			else
+            {
+	           charSet.add(charArray[i]); 
+            }
+			
+			
+		}
+		
+		System.out.println(charSet);
+		System.out.println(dupeCharset);
+		
+		
+		for (Character ch : charSet)
+		{
+			if(!Character.isWhitespace(ch))
+				System.out.print(ch);
+		}
+				
+	}
+
+}
