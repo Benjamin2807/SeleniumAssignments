@@ -1,0 +1,107 @@
+package week4.day2ServiceNowIncidentManagement;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class UpdateIncident {
+
+	public static void main(String[] args) throws InterruptedException {
+	
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("https://dev103117.service-now.com");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		Thread.sleep(5000);
+		driver.switchTo().frame(0);
+		driver.findElement(By.xpath("//input[@id = 'user_name']")).sendKeys("admin");
+		driver.findElement(By.id("user_password")).sendKeys("India@123");
+		driver.findElement(By.id("sysverb_login")).click();
+		
+		
+		WebElement web = driver.findElement(By.id("filter"));
+		
+		WebDriverWait wait  = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOf(web));
+			
+		web.sendKeys("incident");
+		Thread.sleep(3000);
+		web.sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//div[text() = 'Incidents']")).click();
+		
+		Thread.sleep(3000);
+		driver.switchTo().frame(0);
+		
+		WebElement search = driver.findElement(By.xpath("//span[text() = 'Press Enter from within the input to submit the search.']/following::input"));
+	    search.sendKeys("INC0010616");
+	    search.sendKeys(Keys.ENTER);
+	    Thread.sleep(3000);
+	    
+	    driver.findElement(By.xpath("//td[@class = 'vt']/a")).click();
+	    
+	    WebElement urgency = driver.findElement(By.id("incident.urgency"));
+	    Select dropdown1 = new Select(urgency);
+	    WebElement exUrgency0 = dropdown1.getFirstSelectedOption();
+	    String exUrgency = exUrgency0.getText();
+		dropdown1.selectByVisibleText("1 - High");
+		
+		
+		
+		WebElement state = driver.findElement(By.id("incident.state"));
+	    Select dropdown2 = new Select(state);
+	    WebElement value = dropdown2.getFirstSelectedOption();
+	    String exState = value.getText();
+	    dropdown2.selectByVisibleText("In Progress");
+		
+	    
+	    System.out.println("Existing values ");
+	    System.out.println(exUrgency);
+	    System.out.println(exState);
+	    
+		  
+	    driver.findElement(By.id("sysverb_update_bottom")).click();
+	    
+	    driver.findElement(By.xpath("//td[@class = 'vt']/a")).click();
+	    
+	   Thread.sleep(3000); 
+	   
+	    WebElement newurgency0 = driver.findElement(By.id("incident.urgency"));
+	    Select dropdown3 = new Select(newurgency0); 
+	    WebElement newUrgency0 = dropdown3.getFirstSelectedOption();
+	    String newUrgency = newUrgency0.getText();
+	   
+	   WebElement newstate0 = driver.findElement(By.id("incident.state"));
+	   Select dropdown4 = new Select(newstate0);
+	   WebElement newState0 = dropdown4.getFirstSelectedOption();
+	   String newState = newState0.getText();
+	   
+	   System.out.println("Updated Values");
+	   System.out.println(newUrgency);
+	   System.out.println(newState);
+	   
+	   
+	   if(!exUrgency.equalsIgnoreCase(newUrgency)|| !exState.equalsIgnoreCase(newState))
+	   {
+		   System.out.println("Testcase Passed");
+		   
+	   }
+	   
+	   else
+	   {
+		   System.out.println("Testcase Failed");
+	   }
+	   
+	}
+
+}
