@@ -1,0 +1,91 @@
+package week4.day2ServiceNowCaller;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class CreateCaller {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("https://dev103117.service-now.com");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		
+		Thread.sleep(5000);
+		driver.switchTo().frame(0);
+		driver.findElement(By.xpath("//input[@id = 'user_name']")).sendKeys("admin");
+		driver.findElement(By.id("user_password")).sendKeys("India@123");
+		driver.findElement(By.id("sysverb_login")).click();
+		
+		
+		WebElement web = driver.findElement(By.id("filter"));
+		
+		WebDriverWait wait  = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOf(web));
+		
+
+		web.sendKeys("caller");
+		Thread.sleep(3000);
+
+		driver.findElement(By.xpath("//div[text()='Callers']")).click();
+		driver.switchTo().frame(0);
+		driver.findElement(By.id("sysverb_new")).click();
+		
+		driver.findElement(By.id("sys_user.first_name")).sendKeys("soona");
+		driver.findElement(By.id("sys_user.last_name")).sendKeys("paana");
+		driver.findElement(By.id("lookup.sys_user.title")).click();
+		
+		Set<String> set = driver.getWindowHandles();
+		List<String> list =  new ArrayList<String>(set);
+		
+		driver.switchTo().window(list.get(1));
+		Thread.sleep(3000);
+		driver.findElement(By.linkText("Junior Developer")).click();
+		Thread.sleep(3000);
+		driver.switchTo().window(list.get(0));
+		driver.switchTo().frame(0);
+		
+	    driver.findElement(By.id("sys_user.phone")).sendKeys("213 198 1239");
+	    String firstName = driver.findElement(By.id("sys_user.first_name")).getAttribute("value");
+	    System.out.println("First Name is: " +firstName);
+	    driver.findElement(By.id("sysverb_insert")).click();
+	    Thread.sleep(3000);
+	    
+	    WebElement selectBy = driver.findElement(By.xpath("//select[@class='form-control default-focus-outline']"));
+	    Select select = new Select(selectBy);
+	    select.selectByVisibleText("First name");
+	    
+	    driver.findElement(By.xpath("//input[@class='form-control']")).sendKeys(firstName,Keys.ENTER);
+	    Thread.sleep(3000);
+	    driver.findElement(By.xpath("//a[@class='linked formlink']")).click();
+	    String firstName1 = driver.findElement(By.id("sys_user.first_name")).getAttribute("value");
+	    
+	    if(firstName1.equalsIgnoreCase(firstName))
+	    {
+	    	System.out.println("Caller created");
+	    	System.out.println("Testcase Passed");
+	    }
+	    
+	    else
+	    {
+	    	System.out.println("Testcase Failed");
+	    }
+	}
+
+}
