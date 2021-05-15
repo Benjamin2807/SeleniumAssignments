@@ -1,0 +1,115 @@
+package week4.day2ServiceNowChangeManagement;
+
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class UpdateScheduleforChange {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriverManager.chromedriver().setup();
+		ChromeDriver driver = new ChromeDriver();
+		driver.get("https://dev103117.service-now.com");
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		
+		Thread.sleep(5000);
+		driver.switchTo().frame(0);
+		driver.findElement(By.xpath("//input[@id = 'user_name']")).sendKeys("admin");
+		driver.findElement(By.id("user_password")).sendKeys("India@123");
+		driver.findElement(By.id("sysverb_login")).click();
+		
+		
+		WebElement web = driver.findElement(By.id("filter"));
+		
+		WebDriverWait wait  = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOf(web));
+		
+		Thread.sleep(3000);
+		web.sendKeys("change");
+		
+        driver.findElement(By.xpath("(//div[text() = 'Open'])[3]")).click();
+		
+		driver.switchTo().frame(0);
+		
+		driver.findElement(By.xpath("(//a[@class = 'linked formlink'])[1]")).click();
+		String changeNumber = driver.findElement(By.id("change_request.number")).getAttribute("value");
+		System.out.println("Change Number is "+changeNumber);
+		
+		driver.findElement(By.xpath("//span[text() = 'Schedule']")).click();
+		
+		driver.findElement(By.xpath("(//button[@id = 'change_request.start_date.ui_policy_sensitive'])[2]")).click();
+		driver.findElement(By.xpath("//td[text() = 'Go to Today']")).click();
+		driver.findElement(By.id("GwtDateTimePicker_ok")).click();
+		driver.findElement(By.xpath("(//button[@id = 'change_request.end_date.ui_policy_sensitive'])[2]")).click();
+		driver.findElement(By.id("GwtDateTimePicker_month_next")).click();
+		driver.findElement(By.id("GwtDateTimePicker_day11")).click();
+		driver.findElement(By.id("GwtDateTimePicker_ok")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.id("label.ni.change_request.cab_required")).click();
+		driver.findElement(By.id("change_request.cab_date.ui_policy_sensitive")).click();
+        driver.findElement(By.xpath("//td[@id = 'GwtDateTimePicker_month_next']")).click();
+		driver.findElement(By.id("GwtDateTimePicker_day3")).click();
+		driver.findElement(By.id("sysverb_update_bottom")).click();
+		
+		Thread.sleep(3000);
+		WebElement type = driver.findElement(By.xpath("//select[@class = 'form-control default-focus-outline']"));
+		Select select1 = new Select(type);
+		select1.selectByVisibleText("Number");
+		
+		WebElement search = driver.findElement(By.xpath("//span[text() = 'Press Enter from within the input to submit the search.']/following::input"));
+	    search.sendKeys(changeNumber);
+	    Thread.sleep(3000);
+		
+	    driver.findElement(By.xpath("(//a[@class = 'linked formlink'])[1]")).click();
+	    
+	    String startDate = driver.findElement(By.id("change_request.start_date")).getAttribute("value");
+	    String endDate = driver.findElement(By.id("change_request.end_date")).getAttribute("value");
+	    String cabDate = driver.findElement(By.id("change_request.cab_date")).getAttribute("value");
+	    Thread.sleep(3000);
+	    boolean status = driver.findElement(By.id("label.ni.change_request.cab_required")).isSelected();
+	    
+		if(status)
+	    {
+	    	System.out.println("CheckBox clicked");
+	    }
+	    
+	    else
+	    {
+	    	System.out.println("CheckBox not clicked");
+	    }
+	
+	if(startDate.contains("2021")|| endDate.contains("2021") || cabDate.contains("2021"))
+	{
+		System.out.println("Start Date is "+startDate);
+		System.out.println("End Date is "+endDate);
+		System.out.println("Cab Date is "+cabDate);
+		System.out.println("Testcase Passed");
+	}
+	
+	else
+	{
+		System.out.println("Testcase Failed");
+	}
+	
+	}
+
+}
+
+				
+				
+				
+				
+				
+				
+				
