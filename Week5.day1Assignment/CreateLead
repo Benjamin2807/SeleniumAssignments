@@ -1,0 +1,24 @@
+package week5.day1TestGassignment;
+
+import org.openqa.selenium.By;
+import org.testng.annotations.Test;
+
+public class CreateLead extends Baseclass{
+
+	
+	@Test
+	public void createlead() {	
+    
+    driver.findElement(By.linkText("Create Lead")).click();
+	  driver.findElement(By.id("createLeadForm_companyName")).sendKeys("Paypal");
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Benjamin");
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys("premkumar");
+		driver.findElement(By.id("createLeadForm_description")).clear();
+		driver.findElement(By.id("createLeadForm_description")).sendKeys("test");
+		driver.findElement(By.id("createLeadForm_importantNote")).clear();
+		driver.findElement(By.id("createLeadForm_importantNote")).sendKeys("immedidate");
+		driver.findElement(By.name("submitButton")).click();
+
+	}
+
+}
