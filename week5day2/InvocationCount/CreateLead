@@ -1,0 +1,39 @@
+package week5.day1TestGassignment;
+
+import org.testng.annotations.Test;
+import java.io.IOException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
+
+public class CreateLead extends Baseclass{
+
+	@DataProvider(name="TestData")
+	public Object[][] fetchData() throws InvalidFormatException, IOException
+	{
+		
+       String[][] data = ReadFromExcel.readExceldata();
+
+		return data;
+
+	}
+
+
+
+	@Test(dataProvider = "TestData", groups="smoke",invocationCount=3)
+	public void createlead(String cname, String fname, String lname) throws InterruptedException {	
+		
+    driver.findElement(By.linkText("Create Lead")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys(cname);
+		driver.findElement(By.id("createLeadForm_firstName")).sendKeys(fname);
+		driver.findElement(By.id("createLeadForm_lastName")).sendKeys(lname);
+		driver.findElement(By.id("createLeadForm_description")).sendKeys("Tester");
+		driver.findElement(By.id("createLeadForm_importantNote")).sendKeys("immedidate");
+		driver.findElement(By.name("submitButton")).click();
+
+	}
+
+}
+
+
