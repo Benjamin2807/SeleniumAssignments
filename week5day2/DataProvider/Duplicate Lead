@@ -1,0 +1,45 @@
+package week5.day1TestGassignment;
+
+import java.io.IOException;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class DuplicatLead extends Baseclass {
+
+
+	@DataProvider(name="Testdata")
+	public Object[][] fetchData() throws InvalidFormatException, IOException
+	{
+		String[][] data = ReadFromExcel.readExceldata("Duplicate Lead"); 
+		return data;
+	}
+
+	@Test(dataProvider = "Testdata",groups = "smoke")
+	public  void duplicateLead(String email, String cname) throws InterruptedException {
+
+
+		driver.findElement(By.linkText("Leads")).click();
+		driver.findElement(By.linkText("Find Leads")).click();
+		driver.findElement(By.xpath("(//span[@class='x-tab-strip-text '])[3]")).click();
+		driver.findElement(By.xpath("//label[text()='Email Address:']/following::input")).sendKeys(email);
+		driver.findElement(By.xpath("//button[text()='Find Leads']")).click();
+
+		Thread.sleep(3000);
+
+		driver.findElement(By.xpath("//div[@class='x-grid3-cell-inner x-grid3-col-firstName']/a")).click();
+		String cname0 = driver.findElement(By.id("viewLead_companyName_sp")).getText();
+		System.out.println(cname0);
+		driver.findElement(By.xpath("//a[text() ='Duplicate Lead']")).click();
+		driver.findElement(By.id("createLeadForm_companyName")).clear();
+		driver.findElement(By.id("createLeadForm_companyName")).sendKeys(cname);
+		driver.findElement(By.name("submitButton")).click();
+		String cname1 = driver.findElement(By.id("viewLead_companyName_sp")).getText();
+		System.out.println(cname1);	
+		Thread.sleep(3000);
+
+	}
+
+}
