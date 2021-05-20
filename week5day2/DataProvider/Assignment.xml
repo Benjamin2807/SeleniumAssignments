@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" verbose = "6">
+<groups>
+<run>
+<include name="common"></include>
+<include name="smoke"></include>
+</run>
+</groups>
+<parameter name="url" value="http://leaftaps.com/opentaps/control/main"></parameter>
+<parameter name="username" value="DemoSalesManager"></parameter>
+<parameter name="password" value="crmsfa"></parameter>
+  <test thread-count="1" name="Test">
+    <classes>
+    <class name="week5.day1TestGassignment.EditLead"/>
+    <class name="week5.day1TestGassignment.CreateLead"/>
+     <class name="week5.day1TestGassignment.DuplicatLead"/>
+      <class name="week5.day1TestGassignment.MergeLead"/>
+      <class name="week5.day1TestGassignment.DeleteLead"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
