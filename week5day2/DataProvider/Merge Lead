@@ -1,0 +1,65 @@
+package week5.day1TestGassignment;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class MergeLead extends Baseclass{
+
+	@DataProvider(name="Testdata")
+	public Object[][] fetchData() throws InvalidFormatException, IOException
+	{
+		String[][] data = ReadFromExcel.readExceldata("Merge Lead"); 
+		return data;
+	}
+
+
+	@Test(dataProvider = "Testdata",groups = "smoke")
+	public  void newMergeLead(String fname) throws InterruptedException {
+
+		driver.findElement(By.linkText("Leads")).click();
+		driver.findElement(By.linkText("Merge Leads")).click();
+		driver.findElement(By.xpath("//img[@alt='Lookup']")).click();
+		Thread.sleep(2000);
+
+		Set<String> set = driver.getWindowHandles();
+		List<String> list = new ArrayList<String>(set);
+		driver.switchTo().window(list.get(1));
+
+		driver.findElement(By.name("firstName")).sendKeys(fname);
+		driver.findElement(By.xpath("//button[text() = 'Find Leads']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//a[@class='linktext']")).click();
+		Thread.sleep(3000);
+		driver.switchTo().window(list.get(0));
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//img[@alt='Lookup'])[2]")).click();
+		Set<String> set1= driver.getWindowHandles();
+		List<String> list1 = new ArrayList<String>(set1);
+		driver.switchTo().window(list1.get(1));
+		driver.findElement(By.name("firstName")).sendKeys(fname);
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[text() = 'Find Leads']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//div[@class = 'x-grid3-cell-inner x-grid3-col-partyId'])[2]/a")).click();
+		Thread.sleep(3000);
+		driver.switchTo().window(list.get(0));
+		Thread.sleep(3000);
+
+		driver.findElement(By.linkText("Merge")).click();
+
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+
+		Thread.sleep(5000);
+
+	}
+
+}
